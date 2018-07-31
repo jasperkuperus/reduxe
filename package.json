@@ -12,10 +12,14 @@
   "scripts": {
     "prepare": "yarn build",
     "build": "yarn tsc",
-    "test": "yarn jest"
+    "test": "yarn jest",
+    "lint": "yarn tslint -c tslint.json -t verbose 'src/**/*.ts'"
   },
   "jest": {
-    "moduleFileExtensions": ["ts", "js"],
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
     "transform": {
       "\\.ts$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
@@ -29,6 +33,7 @@
     "@types/jest": "^23.3.1",
     "jest": "^23.4.2",
     "ts-jest": "^23.0.1",
+    "tslint": "^5.11.0",
     "typescript": "^3.0.1"
   }
 }
