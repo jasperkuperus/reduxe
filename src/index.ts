@@ -1,5 +1,5 @@
-function hi(name: string) {
-  console.log('Hi', name);
+export function hi(name: string) {
+  return `Hi ${name}!`;
 }
 
-hi('mister');
+console.log(hi('mister'));

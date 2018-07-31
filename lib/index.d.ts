@@ -1,1 +1,1 @@
-declare function hi(name: string): void;
+export declare function hi(name: string): string;

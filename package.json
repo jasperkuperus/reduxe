@@ -6,17 +6,29 @@
   "license": "MIT",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "prepare": "yarn build",
-    "build": "yarn tsc"
+    "build": "yarn tsc",
+    "test": "yarn jest"
+  },
+  "jest": {
+    "moduleFileExtensions": ["ts", "js"],
+    "transform": {
+      "\\.ts$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testEnvironment": "node",
+    "testRegex": "/test/.*\\.spec\\.ts$"
   },
   "peerDependencies": {
     "redux": "^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.1",
+    "jest": "^23.4.2",
+    "ts-jest": "^23.0.1",
     "typescript": "^3.0.1"
-  },
-  "files": [
-    "lib"
-  ]
+  }
 }
