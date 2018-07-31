@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jasperkuperus/reduxe.svg?branch=master)](https://travis-ci.org/jasperkuperus/reduxe)
+
 # reduxe
 A sane way to reduce boilerplate in redux. Not in any way ready for production yet ;-)
 
