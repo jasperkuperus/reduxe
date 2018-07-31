@@ -46,4 +46,6 @@ Actions:
 - Get data for a query
 - Invalidate data within (a) quer(y/ies)
 
+Make all kinds of selectors...
+
 Make sure the user still has to use / can use redux
