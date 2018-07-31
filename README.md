@@ -1,7 +1,7 @@
 # reduxe
 A sane way to reduce boilerplate in redux. Not in any way ready for production yet ;-)
 
-MIT License
+## MIT License
 
 Copyright (c) 2018 Jasper Kuperus
 
