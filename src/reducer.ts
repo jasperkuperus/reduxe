@@ -6,5 +6,5 @@ export default function createReducer<T>() {
       default:
         return state;
     }
-  }
+  };
 }
