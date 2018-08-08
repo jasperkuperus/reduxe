@@ -8,7 +8,7 @@ This document is very much a work in progress...
 - Keep things explicit
 - Use Redux as you normally would
 - Don't become an abstraction layer, just add convenience
-- Only take away hassle of creating all boilerplat that is the same for each entity you add to Redux
+- Only take away hassle of creating all boilerplate that is the same for each entity you add to Redux
 
 ### Wins
 
@@ -106,8 +106,8 @@ Example:
 const SET_SORTING = 'comments/SET_SORTING';
 
 export const setSorting = (sort: string) => ({
-	type: SET_SORTING,
-	sort,
+  type: SET_SORTING,
+  sort,
 });
 ```
 
@@ -117,28 +117,28 @@ import { createReducer, createInitialState } from 'reduxe';
 import { SET_SORTING } from './comment-actions';
 
 type State = EntityState & {
-	sort: 'date' | 'name',
-	// ... other custom reducer fields
+  sort: 'date' | 'name',
+  // ... other custom reducer fields
 };
 
 const initialState = {
-	...createInitialState(),
-	sort: 'date',
+  ...createInitialState(),
+  sort: 'date',
 }
 
 function reducer(state: State, action: Action) {
-	switch (action.type) {
-		case SET_SORTING:
-			return {
-				...state,
-				sort: action.sort,
-			}
-		default:
-			return state;
-	}
+  switch (action.type) {
+    case SET_SORTING:
+      return {
+        ...state,
+        sort: action.sort,
+      }
+    default:
+      return state;
+  }
 }
 
-export default createReducer('comment', reducer); 
+export default createReducer('comment', reducer);
 ```
 
 ```
@@ -146,57 +146,57 @@ export default createReducer('comment', reducer);
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-	queryStart, querySuccess, queryError, removeEntity,
-	selectQueryItems,
+  queryStart, querySuccess, queryError, removeEntity,
+  selectQueryItems,
 } from 'reduxe';
 
 @connect(state => ({
-	comments: selectQueryItems('comment', 'all'),
+  comments: selectQueryItems('comment', 'all'),
 }), {
-	queryStart, querySuccess, queryError, removeEntity,
+  queryStart, querySuccess, queryError, removeEntity,
 })
 export default class MyComponent extends React.Component {
-	async componentDidMount() {
-		this.props.queryStart('comment', 'all');
-		
-		try {
-			const result = await fetchAllComments();
-			this.props.querySuccess('comment', 'all', result);
-		} catch (error) {
-			this.props.queryError('comment', 'all', error);
-		}
-	}
-	
-	deleteComment(comment) {
-		this.props.removeEntity('comment', comment.id);
-	}
-	
-	render() {
-		const { comments } = this.props;
-		
-		return (
-			<ul>
-				{comments.map(comment => (
-					<li key={comment.id}>
-						{comment.message}
-						&nbsp;-&nbsp;
-						<a onClick={() => this.deleteComment(comment)}>Delete</a>
-					</li>
-				))}
-			</ul>
-		);
-	}
+  async componentDidMount() {
+    this.props.queryStart('comment', 'all');
+
+    try {
+      const result = await fetchAllComments();
+      this.props.querySuccess('comment', 'all', result);
+    } catch (error) {
+      this.props.queryError('comment', 'all', error);
+    }
+  }
+
+  deleteComment(comment) {
+    this.props.removeEntity('comment', comment.id);
+  }
+
+  render() {
+    const { comments } = this.props;
+
+    return (
+      <ul>
+        {comments.map(comment => (
+          <li key={comment.id}>
+            {comment.message}
+            &nbsp;-&nbsp;
+            <a onClick={() => this.deleteComment(comment)}>Delete</a>
+          </li>
+        ))}
+      </ul>
+    );
+  }
 }
 ```
 
 ## TODO
 
 - Pick up nested entities? Or just don't do that?
-	- More configuration...
-	- Convert nested entities to ID in reducer
-	- Store nested entities in its own reducer
-	- Convert ID to entities in selectors
-	- Am I building an ORM? Prevent that :)
+  - More configuration...
+  - Convert nested entities to ID in reducer
+  - Store nested entities in its own reducer
+  - Convert ID to entities in selectors
+  - Am I building an ORM? Prevent that :)
 - Last updated (per query)
 - Simpler initialization? Change where a reducer is in the tree? Primarily for selectors?
 - Redux thunk example
@@ -206,12 +206,13 @@ export default class MyComponent extends React.Component {
 - Should work with [https://github.com/paularmstrong/normalizr](https://github.com/paularmstrong/normalizr)?
 - Do add a root reducer for this lib? Or encourage to make a reducer for each entity so people see the link with their own redux state?
 - Encourage `combineReducers`?
+- Work out async actions, all of them. E.g. delete. How to handle error of the request, etc.
 
 ## Similar libraries:
 
 - [https://www.npmjs.com/package/redux-entity](https://www.npmjs.com/package/redux-entity)
-	- Quite similar but simpler, no support for multiple views on the same data (queries)
-	- Dispatches the actions for you, you only have to pass a promise to `loadEntity`. More implicit, I'd like people to know exactly how this works. If they use the actions theirselves, they are more aware of what happens and can more easily debug it.
-	- Has it's reducer at top level
+  - Quite similar but simpler, no support for multiple views on the same data (queries)
+  - Dispatches the actions for you, you only have to pass a promise to `loadEntity`. More implicit, I'd like people to know exactly how this works. If they use the actions theirselves, they are more aware of what happens and can more easily debug it.
+  - Has it's reducer at top level
 - [https://www.npmjs.com/package/redux-entities](https://www.npmjs.com/package/redux-entities)
-	- Built on top of `normalizr`
+  - Built on top of `normalizr`
